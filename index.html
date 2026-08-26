@@ -771,12 +771,28 @@
       font-weight: 500;
     }
 
-    .achievements-grid {
-      max-width: 1000px;
+    .achievements-carousel {
+      --milestone-card-width: 250px;
+      --milestone-gap: 1.25rem;
+      max-width: 1080px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      padding: 0.5rem 0;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+
+    .achievements-track {
+      display: flex;
+      gap: var(--milestone-gap);
+      width: max-content;
+      animation: milestoneScroll 24s linear infinite;
+      will-change: transform;
+    }
+
+    .achievements-carousel:hover .achievements-track {
+      animation-play-state: paused;
     }
 
     .achievement-card {
@@ -788,6 +804,8 @@
       transition: var(--transition);
       position: relative;
       overflow: hidden;
+      min-width: var(--milestone-card-width);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.2);
     }
 
     .achievement-card::after {
@@ -805,6 +823,7 @@
     .achievement-card:hover {
       transform: translateY(-6px);
       border-color: var(--border-hover);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.3);
     }
 
     .achievement-icon {
@@ -821,6 +840,13 @@
     .achievement-card p {
       font-size: 0.85rem;
       color: var(--text-muted);
+    }
+
+    @keyframes milestoneScroll {
+      from { transform: translateX(0); }
+      to {
+        transform: translateX(calc(-1 * ((var(--milestone-card-width) * 4) + (var(--milestone-gap) * 4))));
+      }
     }
 
     .contact-container {
@@ -981,6 +1007,11 @@
 
       .about-highlights { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr; }
+      .achievements-carousel {
+        --milestone-card-width: 220px;
+        --milestone-gap: 1rem;
+      }
+      .achievements-track { animation-duration: 20s; }
     }
 
     @media (max-width: 480px) {
@@ -1370,26 +1401,49 @@
       <h2 class="section-title">Milestones</h2>
       <p class="section-subtitle">Recognition and accomplishments along the journey</p>
     </div>
-    <div class="achievements-grid reveal">
-      <div class="achievement-card">
-        <div class="achievement-icon">🏆</div>
-        <h4>Top 10 Finalist</h4>
-        <p>Everest Engineering Hackathon 2025<br>Among 100+ teams</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">🥇</div>
-        <h4>Hackathon Winner</h4>
-        <p>College-Level Hackathon 2024<br>1st Place</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">🥈</div>
-        <h4>Coding Contest Runner-up</h4>
-        <p>College-Level Coding Contest 2025<br>2nd Place</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">💯</div>
-        <h4>1000+ DSA Problems</h4>
-        <p>LeetCode, GFG, HackerRank<br>Strong problem solving</p>
+    <div class="achievements-carousel reveal" aria-label="Milestones carousel">
+      <div class="achievements-track">
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <h4>Top 10 Finalist</h4>
+          <p>Everest Engineering Hackathon 2025<br>Among 100+ teams</p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🥇</div>
+          <h4>Hackathon Winner</h4>
+          <p>College-Level Hackathon 2024<br>1st Place</p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🥈</div>
+          <h4>Coding Contest Runner-up</h4>
+          <p>College-Level Coding Contest 2025<br>2nd Place</p>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">💯</div>
+          <h4>1000+ DSA Problems</h4>
+          <p>LeetCode, GFG, HackerRank<br>Strong problem solving</p>
+        </div>
+
+        <div class="achievement-card" aria-hidden="true">
+          <div class="achievement-icon">🏆</div>
+          <h4>Top 10 Finalist</h4>
+          <p>Everest Engineering Hackathon 2025<br>Among 100+ teams</p>
+        </div>
+        <div class="achievement-card" aria-hidden="true">
+          <div class="achievement-icon">🥇</div>
+          <h4>Hackathon Winner</h4>
+          <p>College-Level Hackathon 2024<br>1st Place</p>
+        </div>
+        <div class="achievement-card" aria-hidden="true">
+          <div class="achievement-icon">🥈</div>
+          <h4>Coding Contest Runner-up</h4>
+          <p>College-Level Coding Contest 2025<br>2nd Place</p>
+        </div>
+        <div class="achievement-card" aria-hidden="true">
+          <div class="achievement-icon">💯</div>
+          <h4>1000+ DSA Problems</h4>
+          <p>LeetCode, GFG, HackerRank<br>Strong problem solving</p>
+        </div>
       </div>
     </div>
   </section>
